@@ -6,16 +6,18 @@ for the 4th edition of the Legends of the Five Rings (L5R) RPG
 import random
 
 
-def roll(rolled, keep):
+def roll(rolled, keep, unskilled=False):
 
     '''Rolls 'rolled' d10s, and asks user to keep 'keep' number of dice.
     returns the sum of the value of the dice kept.
     A die resulting in a 10 is exploded.
     A new d10 is rolled, and its result is added to the die that was a 10.
     10 dice rule: if rolled > 10, for each 2 extra dice, add a kept dice
-    instead
+    instead.
+    Dice values of 10 are exploded (and extra die is rolled and added to them),
+    unless the unskilled parameter is set to True.
     '''
-    
+
     if rolled > 10:
         extraDice = rolled - 10
         keep += extraDice // 2
@@ -28,10 +30,11 @@ def roll(rolled, keep):
     for die in range(rolled):
         dieFace = random.randint(1, 10)
         # we'll explode the dieFace if we get a 10, and keep going if we get
-        # another 10.
-        while dieFace % 10 == 0:
-            print("You got a 10 ! Automatic explosion…")
-            dieFace += random.randint(1, 10)
+        # another 10, unless this is an unskilled roll.
+        if not unskilled:
+            while dieFace % 10 == 0:
+                print("You got a 10 ! Automatic explosion…")
+                dieFace += random.randint(1, 10)
 
         rawResult.append(dieFace)
     
@@ -54,3 +57,4 @@ def roll(rolled, keep):
     print(f'You kept {keptDice}')
     print(f'Your final result is {sum(keptDice)}.')
     return sum(keptDice)
+
