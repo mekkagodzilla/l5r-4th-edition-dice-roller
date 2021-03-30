@@ -54,7 +54,7 @@ def roll(rolled, keep, unskilled=False):
         rawResult.remove(response)
         print(f'Keeping a {response}…')  
     
-    print(f'You kept {keptDice}')
+    print(f'You kept {keptDice})
     print(f'Your final result is {sum(keptDice)}.')
     return sum(keptDice)
 
